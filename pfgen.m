@@ -1,0 +1,29 @@
+function pf = pfgen(x,y)
+%generates a platform of specified width and height x and y.
+
+global platformcentre
+
+n = randi(4);
+d = randi(2);
+
+platforms = [".\Assets\art\bin\simpleplatform-48x16-v1.png"...
+             ".\Assets\art\bin\simpleplatform-48x16-v2.png"...
+             ".\Assets\art\bin\simpleplatform-48x16-v3.png"...
+             ".\Assets\art\bin\simpleplatform-48x16-v4.png"
+             ];
+if d == 1
+    [pfimage, map, alphachannel] = imread(platforms(n));
+    pf = imagesc('XData',[platformcentre(1)-x/2 platformcentre(1)+x/2], ...
+                 'YData',[platformcentre(2)-y/2 platformcentre(2)+y/2], ...
+                 'CData',flip(pfimage,1), ...
+                 'AlphaData',flip(alphachannel,1));
+else
+    [pfimage, map, alphachannel] = imread(platforms(n));
+    pfimage = flip(pfimage,1);
+    alphachannel = flip(alphachannel,1);
+    pf = imagesc('XData',[platformcentre(1)-x/2 platformcentre(1)+x/2], ...
+                 'YData',[platformcentre(2)-y/2 platformcentre(2)+y/2], ...
+                 'CData',flip(pfimage,2), ...
+                 'AlphaData',flip(alphachannel,2));
+end
+
